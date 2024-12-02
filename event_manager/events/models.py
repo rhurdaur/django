@@ -1,12 +1,14 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
-
+from event_manager.mixins import DateTimeMixin
 
 User = get_user_model()
 
 
-class Category(models.Model):
+
+class Category(DateTimeMixin):
+    
     name = models.CharField(max_length=100, unique=True)
     sub_title = models.CharField(max_length=100, null=True, blank=True)
     description = models.TextField(
@@ -23,7 +25,8 @@ class Category(models.Model):
         return self.name
 
 
-class Event(models.Model):
+class Event(DateTimeMixin):
+    # thin view, fat model
     
     class Group(models.IntegerChoices):
         BIG = 10, _("mittelgroße Gruppe")

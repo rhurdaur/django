@@ -8,7 +8,17 @@ asgiref==3.8.1
     # via django
 django==5.1.3
     # via -r .\requirements.in
+factory-boy==3.3.1
+    # via -r .\requirements.in
+faker==33.1.0
+    # via factory-boy
+python-dateutil==2.9.0.post0
+    # via faker
+six==1.16.0
+    # via python-dateutil
 sqlparse==0.5.2
     # via django
+typing-extensions==4.12.2
+    # via faker
 tzdata==2024.2
     # via django

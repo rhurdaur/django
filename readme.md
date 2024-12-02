@@ -30,3 +30,5 @@ Alternative zu pip-tools: uv, poetry, pipenv
 ### Montag
 
 https://docs.djangoproject.com/en/5.1/ref/models/querysets/
+https://docs.python.org/3/library/argparse.html
+https://ccbv.co.uk

@@ -1,0 +1,9 @@
+{% for cat in categories %}
+    <b>{{cat}}</b>
+    <br>
+    {% for event in cat.events.all %}
+        {{event}}<br>
+    {% endfor %}
+
+    
+{% endfor %}
