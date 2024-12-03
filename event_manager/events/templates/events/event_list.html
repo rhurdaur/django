@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<a href="{% url 'events:event_create' %}">Neuen Event eintragen</a>
+
 <ul class="list-group event_box">
     {% for event in object_list %}
     <a href="{{event.get_absolute_url}}">

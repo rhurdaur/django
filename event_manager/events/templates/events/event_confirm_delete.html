@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Event löschen
+{%endblock%}
+
+{% block head %}
+<p>
+<a href="{% url 'events:events' %}">zurück zur Übersicht</a><br>
+</p>
+{%endblock%}
+
+{% block content %}
+<h1>Event wirklich löschen?</h1>
+<div class="container">
+<div class="row">
+<div class="col-lg-8 col-md-12 mb-5">
+
+
+<form method="POST">
+    {% csrf_token %}
+    <div>
+    <input class="btn btn-primary" type="submit" value="Jetzt löschen!" />
+    </div>
+</form>
+
+<div>
+</div>
+</div>
+{% endblock %}

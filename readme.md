@@ -16,6 +16,14 @@
     (env) python manage.py create_user
     (env) python manage.py create_events --events 20
 
+
+## folgende Apps wurden entwickelt
+
+- User-App für das User-Model und die User-API
+- Event-App für die Event-Verwaltung
+- Core-App für die Verwaltung von misc
+
+
 ## Literatur
 - [Docker angucken](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/)
 - [Pip Tools](https://pip-tools.readthedocs.io/en/stable/)
@@ -43,3 +51,10 @@ https://django-debug-toolbar.readthedocs.io/en/latest/installation.html
 
 #### Crispy forms
 https://djangoheroes.friendlybytes.net/working_with_forms/working_with_forms.html#crispy-forms
+
+https://django-filter.readthedocs.io
+
+[Elasticsearch](https://www.elastic.co/de/elasticsearch)
+
+Postgres Fulltext-Search
+https://docs.djangoproject.com/en/5.1/ref/contrib/postgres/search/

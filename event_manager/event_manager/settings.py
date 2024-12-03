@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "user",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "crispy_bootstrap5",
     "crispy_forms",
-    "user",
     "events",
+    "core",
 ]
 
 
@@ -108,6 +109,9 @@ DATABASES = {
 
 # custom User Model
 AUTH_USER_MODEL = "user.User"
+LOGIN_REDIRECT_URL = "/events"
+LOGOUT_REDIRECT_URL = "/events"
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

@@ -1,9 +1,44 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required  # für Funktionen
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from . import models
-from .forms import EventForm
+from .forms import EventForm, CategoryForm
 
+
+class UserIsAuthor(UserPassesTestMixin):
+    """User muss diesen Test bestehen."""
+
+    def test_func(self):
+        return self.get_object().author == self.request.user 
+
+
+class UserIsAuthorOrModerator(UserPassesTestMixin):
+    """User ist Besitzer des Events oder Mitglied der Moderatoren-Gruppe."""
+    def test_func(self):
+        return (
+            self.get_object().author == self.request.user
+            or self.request.user.groups.filter(name="Moderatoren").exists()
+        )
+
+
+@login_required
+def category_create(request):
+    """ 
+    View zum Anlegen einer Kategorie
+    """
+    
+    if request.method == "POST":
+        form = CategoryForm(request.POST, request.FILES)
+        if form.is_valid():
+            category = form.save()
+            return redirect("events:category_detail", category.pk)
+    else:
+        form = CategoryForm()
+        
+    return render(request, "events/category_form.html", {"form": form})
 
 
 def categories(request):
@@ -18,27 +53,35 @@ def categories(request):
         "events/categories.html",  # template
         {"categories": categories},  # context
     )
-    
-class CategoryDetailView(DetailView):
-    """
-    /events/categories/3
-    """
-    model = models.Category
-    
+  
 
-class EventUpdateView(UpdateView):
+class EventDeleteView(UserIsAuthorOrModerator, DeleteView):
+    model = models.Event 
+    success_url = reverse_lazy("events:events")  # reverse geht nicht
+
+
+class EventUpdateView(UserIsAuthorOrModerator, UpdateView):
     """ 
     POST /events/3/update
     """
     model = models.Event 
     form_class = EventForm
 
-class EventCreateView(CreateView):
+
+class CategoryDetailView(DetailView):
+    """
+    /events/categories/3
+    """
+    model = models.Category
+        
+
+class EventCreateView(LoginRequiredMixin, CreateView):
     """ 
     POST /events/create
     """
     model = models.Event 
     form_class = EventForm
+  
     
     def form_valid(self, form):
         # falls Form valide, setze Author auf den eingeloggten
@@ -52,6 +95,16 @@ class EventDetailView(DetailView):
     /events/3
     """
     model = models.Event
+    
+    
+class SearchEventView(ListView):
+    model = models.Event
+    
+    def get_queryset(self):
+        qs = super().get_queryset()  # Event.objects.all()
+        searchTerm = self.request.GET.get('q')
+        queryset = qs.filter(name__icontains=searchTerm)
+        return queryset
     
 
 class EventListView(ListView):
