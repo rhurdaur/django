@@ -3,15 +3,18 @@
 ## Installation
 
     git clone https://github.com/rhurdaur/djangoproject
+    cd djangoproject
+
     python -m venv env
     .\env\Scripts\activate
 
     (env) pip install pip-tools
+    (env) cd event_manager
     (env) pip-sync .\requirements.txt .\requirements-dev.txt
 
     (env) python manage.py createsuperuser
     (env) python manage.py create_user
-    (env) python manage.py create_events
+    (env) python manage.py create_events --events 20
 
 ## Literatur
 - [Docker angucken](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/)
@@ -27,8 +30,16 @@ Alternative zu pip-tools: uv, poetry, pipenv
 
 ## Django-Docs
 
-### Montag
+### Tag 1
 
 https://docs.djangoproject.com/en/5.1/ref/models/querysets/
 https://docs.python.org/3/library/argparse.html
 https://ccbv.co.uk
+
+
+### Tag 2
+
+https://django-debug-toolbar.readthedocs.io/en/latest/installation.html
+
+#### Crispy forms
+https://djangoheroes.friendlybytes.net/working_with_forms/working_with_forms.html#crispy-forms

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Event eintragen
+{%endblock%}
+
+{% block head %}
+<p>
+<a href="{% url 'events:events' %}">zurück zur Übersicht</a><br>
+</p>
+
+{% if object %}
+  <h1 class="display-6 fw-bold lh-1">Event editieren</h1>
+  {% else %}
+  <h1 class="display-6 fw-bold lh-1">Event eintragen</h1>
+{% endif %}
+
+
+{%endblock%}
+
+{% block content %}
+<div class="container">
+<div class="row">
+<div class="col-lg-8 col-md-12 mb-5">
+
+
+<form method="POST">
+    {% csrf_token %}
+        {{form|crispy}}
+        <div>
+        <input class="btn btn-primary" type="submit" value="Jetzt eintragen" />
+        </div>
+</form>
+
+<div>
+</div>
+</div>
+{% endblock %}

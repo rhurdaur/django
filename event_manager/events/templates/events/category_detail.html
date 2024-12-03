@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <h1>{{object}}</h1>
+    <p>{{object.sub_title|default:'--' }}</p>
+
+{% endblock %}
+
+{% block content %}
+    <a href="{% url 'events:categories' %}">zurück zur Kategorie-Übersicht</a>
+    <p>{{object}}</p>
+    <p>{{object.description|linebreaks}}</p>
+{% endblock %}

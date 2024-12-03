@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <h1>{{object}}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="col-lg-8 col-sm-12">
+        <h3>Beschreibung</h3>
+            <a href="{% url 'events:event_update' object.pk %}">Eintrag editieren</a><br>
+            <p>{{object.description}}</p>
+
+            <section class="mb-5 mt-5">
+            <h3>zusätzliche Infos</h3>
+            <ul>
+            <li>eingestellt am: {{object.created_at}}</li>
+            <li>eingestellt von: {{object.author}}</li>
+            <li><b>findet statt am (deutsche Zeit): {{object.date}}</b></li>
+            <li>Min Gruppengröße: {{object.get_min_group_display}}  mindestes {{object.min_group}} Personen</li>
+            </ul>
+            </section>
+
+        <h3>Ähnliche Events</h3>
+        <ul>
+        {% for event in object.related_events %}
+            <li>{{event}}</li>
+        {% empty %}
+            <li>Sorry, keine Events</li>
+        {% endfor %}
+        </ul>
+
+    </div>
+</div>
+
+{% endblock %}

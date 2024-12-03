@@ -1,5 +1,16 @@
-<ul>
-{% for event in event_list %}
-    <li>{{event}}</li>
-{% endfor %}
-</ul>
+{% extends "base.html" %}
+
+{% block content %}
+<ul class="list-group event_box">
+    {% for event in object_list %}
+    <a href="{{event.get_absolute_url}}">
+    <li class="list-group-item rounded">
+    <small><span>am {{event.date}}</span></small><br>
+    <b>{{event.name}}</b>
+        <span class="badge rounded-pill bg-primary">{{event.category.name}}</span>
+        <p>by {{event.author}}</p>
+    </li>
+    </a>
+    {% endfor%}
+    </ul>
+    {% endblock %}

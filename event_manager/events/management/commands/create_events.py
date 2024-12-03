@@ -4,9 +4,10 @@ Argparser nutzen.
 
 python manage.py create_events --events 100
 """
+
 import random
 from django.core.management.base import BaseCommand
-from events.models import Category, Event 
+from events.models import Category, Event
 from events.factories import CategoryFactory, EventFactory
 
 NUM_CATEGORIES = 10
@@ -16,12 +17,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         """Argument-Vektor auslesen"""
         parser.description = "Generate n random events"
-        parser.add_argument(
-            "-e",
-            "--events",
-            type=int,
-            required=True
-        )
+        parser.add_argument("-e", "--events", type=int, required=True)
         parser.epilog = "Nutzung: python manage.py create_events --events 100"
 
     def handle(self, *args, **options):

@@ -1,9 +1,9 @@
-{% for cat in categories %}
-    <b>{{cat}}</b>
-    <br>
-    {% for event in cat.events.all %}
-        {{event}}<br>
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% for cat in categories %}
+        <a href="{% url 'events:category_detail' cat.pk %}">{{cat}}</a>
     {% endfor %}
 
-    
-{% endfor %}
+{% endblock %}

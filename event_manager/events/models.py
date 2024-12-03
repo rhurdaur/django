@@ -1,10 +1,10 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from event_manager.mixins import DateTimeMixin
 
 User = get_user_model()
-
 
 
 class Category(DateTimeMixin):
@@ -49,6 +49,17 @@ class Event(DateTimeMixin):
                                related_name="events")
     min_group = models.IntegerField(choices=Group.choices)
     
+    def related_events(self):
+        """Ähnliche Events auflisten."""
+        related_events = Event.objects.filter(
+            min_group=self.min_group,
+            category=self.category
+        )
+        return related_events.exclude(pk=self.pk)
+    
+    def get_absolute_url(self):
+        """Homepage zum Event."""
+        return reverse("events:event_detail", kwargs={"pk": self.pk})
     
     def __str__(self) -> str:
         return self.name

@@ -39,7 +39,7 @@ class EventFactory(factory.django.DjangoModelFactory):
         model = Event
     
     author = factory.SubFactory(UserFactory)
-    # category = factory.SubFactory(CategoryFactory)
+    category = factory.SubFactory(CategoryFactory)
     name = factory.Faker("sentence")
     sub_title = factory.Faker("sentence")
     description = factory.Faker("paragraph", nb_sentences=5, locale="de_DE")
