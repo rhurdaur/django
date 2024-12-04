@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+    <h1>Neues Ticket anlegen</h1>
+{% endblock %}
+
+
+{% block content %}
+  <h1>Your Tickets</h1>
+  <ul>
+    {% for ticket in tickets %}
+      <li>{{ ticket.name }} ({{ ticket.nummer }}) - {{ ticket.event }}</li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'events:ticket_create' %}">Create New Ticket</a>
+{% endblock %}

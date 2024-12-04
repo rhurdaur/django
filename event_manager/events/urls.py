@@ -18,4 +18,6 @@ urlpatterns = [
         views.CategoryDetailView.as_view(),
         name="category_detail",
     ),
+    path("tickets", views.TicketListView.as_view(), name="ticket_list"),
+    path("tickets/create/", views.TicketCreateView.as_view(), name="ticket_create"),
 ]

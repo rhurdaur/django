@@ -58,3 +58,7 @@ https://django-filter.readthedocs.io
 
 Postgres Fulltext-Search
 https://docs.djangoproject.com/en/5.1/ref/contrib/postgres/search/
+
+### Tag 3
+
+https://djangoheroes.friendlybytes.net/extended_technics/message_framework.html#message-level
