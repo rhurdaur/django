@@ -67,3 +67,4 @@ https://djangoheroes.friendlybytes.net/extended_technics/message_framework.html#
 https://djangoheroes.spielprinzip.com/organisation/organize_settings.html#django-environ
 https://djangoheroes.spielprinzip.com/profiwissen/whitenoise.html#index-0
 https://django-extensions.readthedocs.io/en/latest/
+https://www.django-rest-framework.org/
