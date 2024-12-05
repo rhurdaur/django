@@ -62,3 +62,8 @@ https://docs.djangoproject.com/en/5.1/ref/contrib/postgres/search/
 ### Tag 3
 
 https://djangoheroes.friendlybytes.net/extended_technics/message_framework.html#message-level
+
+### Tag 4
+https://djangoheroes.spielprinzip.com/organisation/organize_settings.html#django-environ
+https://djangoheroes.spielprinzip.com/profiwissen/whitenoise.html#index-0
+https://django-extensions.readthedocs.io/en/latest/

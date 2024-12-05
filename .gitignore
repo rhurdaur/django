@@ -1,5 +1,13 @@
 env
+.env
 venv
 __pychache__
 *.pyc
 db.sqlite3
+htmlcov/
+html_report/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+staticfiles/

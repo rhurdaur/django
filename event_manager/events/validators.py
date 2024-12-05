@@ -12,6 +12,13 @@ from django.utils import timezone
 from django.core.exceptions import ValidationError
 
 
+def validate_review_text(value):
+    if value and len(value) < 10:  # Nur prüfen, wenn das Feld nicht leer ist
+        raise ValidationError(
+            "The review text must be at least 10 characters long or empty."
+        )
+
+
 def bad_word_filter(wordlist: list[str], field_value: str) -> None:
     """Prüft, ob ein nicht-erlaubtes Wort in field_value vorkommt.
 

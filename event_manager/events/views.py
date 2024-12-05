@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -13,7 +13,7 @@ from django.views.generic import (
     DeleteView,
 )
 from . import models
-from .forms import EventForm, CategoryForm, TicketForm
+from .forms import EventForm, CategoryForm, TicketForm, ReviewForm
 
 
 class UserIsAuthor(UserPassesTestMixin):
@@ -49,6 +49,22 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+
+class ReviewCreateView(LoginRequiredMixin, CreateView):
+    model = models.Review
+    form_class = ReviewForm
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.event = self.event
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("events:event_detail", kwargs={"pk": self.object.event.pk})
+
+    def get_initial(self):
+        self.event = get_object_or_404(models.Event, pk=self.kwargs["event_pk"])
 
 
 # @login_required

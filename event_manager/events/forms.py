@@ -1,12 +1,22 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import Event, Category, Ticket
+from .models import Event, Category, Ticket, Review
 
 
 class TicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
         exclude = ("author",)
+
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        exclude = ("author", "event")
+
+        widgets = {
+            "rating": forms.RadioSelect(),
+        }
 
 
 class CategoryForm(forms.ModelForm):

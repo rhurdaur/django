@@ -9,6 +9,9 @@
 <div class="container">
     <div class="col-lg-8 col-sm-12">
         <h3>Beschreibung</h3>
+        <div>
+        <a href="{% url 'events:review_create' object.pk %}" class="btn btn-primary">Jetzt bewerten</a>
+        </div>
 
             {% if object.author == user or user|is_member:"Moderatoren" %}
                 <a href="{% url 'events:event_update' object.pk %}">Eintrag editieren</a><br>

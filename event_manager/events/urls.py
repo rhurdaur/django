@@ -20,4 +20,9 @@ urlpatterns = [
     ),
     path("tickets", views.TicketListView.as_view(), name="ticket_list"),
     path("tickets/create/", views.TicketCreateView.as_view(), name="ticket_create"),
+    path(
+        "review/create/<int:event_pk>",
+        views.ReviewCreateView.as_view(),
+        name="review_create",
+    ),
 ]

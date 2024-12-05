@@ -6,9 +6,10 @@ python manage.py create_events --events 100
 """
 
 import random
+from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
-from events.models import Category, Event
-from events.factories import CategoryFactory, EventFactory
+from events.models import Category, Event, Ticket, Review
+from events.factories import CategoryFactory, EventFactory, ReviewFactory
 
 NUM_CATEGORIES = 10
 
@@ -22,8 +23,20 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         n = options.get("events")
+
+        print("Delete everything.")
+        for model in [Ticket, Review, Event, Category]:
+            model.objects.all().delete()
+
+        print("Create events...")
         categories = CategoryFactory.create_batch(NUM_CATEGORIES)
         events = EventFactory.create_batch(n)
-        # Alternative: Kategorie-Objekt via Instantiierung übergeben
-        # for _ in range(20):
-        #     EventFactory(category=random.choice(categories))
+        user_list = get_user_model().objects.all()
+
+        print("Create reviews...")
+        for user in user_list:
+            for _ in range(random.randint(1, 6)):
+                ReviewFactory(
+                    author=user,
+                    event=random.choice(events),
+                )

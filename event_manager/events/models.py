@@ -6,9 +6,36 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator, RegexValidator
 from event_manager.mixins import DateTimeMixin
-from .validators import datetime_in_future, validate_name, bad_word_filter
+from .validators import (
+    datetime_in_future,
+    validate_name,
+    bad_word_filter,
+    validate_review_text,
+)
 
 User = get_user_model()
+
+
+class Review(DateTimeMixin):
+
+    class Ratings(models.IntegerChoices):
+        AWESOME = 6
+        SUPER = 5
+        GOOD = 4
+        OK = 3
+        BAD = 2
+        WORST = 1
+
+    name = models.CharField(max_length=255)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews")
+    event = models.ForeignKey("Event", on_delete=models.CASCADE, related_name="reviews")
+    review_text = models.TextField(
+        blank=True, null=True, validators=[validate_review_text]
+    )
+    rating = models.IntegerField(choices=Ratings.choices)
+
+    def __str__(self):
+        return self.name
 
 
 class Ticket(models.Model):

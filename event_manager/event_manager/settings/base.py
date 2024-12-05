@@ -1,20 +1,32 @@
+""" 
+Um im Produktiv- oder Lokalsystem die richtige Umgebungsvariable 
+für die Settings zu setzen, muss die Umgebungsvariable DJANGO_SETTINGS_MODULE
+existieren
+
+windows (prod):
+$env:DJANGO_SETTINGS_MODULE = "event_manager.settings.prod"
+
+linux (prod):
+export DJANGO_SETTINGS_MODULE=event_manager.settings.prod
+
+"""
+
 from pathlib import Path
 from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+from event_manager.environment import BASE_DIR, env
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-*4_)()n2rgh@u52@d@as8-@ic+k9!y)8@4ohz^o-1upbu%v1*n"
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 # Messages
 MESSAGE_TAGS = {
@@ -35,6 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "whitenoise.runserver_nostatic",  # << eintragen
     "django.contrib.staticfiles",
     "crispy_bootstrap5",
     "crispy_forms",
@@ -45,6 +58,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # << eintragen
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -53,22 +67,15 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-if DEBUG:
-    INSTALLED_APPS.extend(
-        [
-            "debug_toolbar",
-            "django_extensions",
-        ]
-    )
-    MIDDLEWARE.extend(
-        [
-            "debug_toolbar.middleware.DebugToolbarMiddleware",
-        ]
-    )
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+}
 
-    INTERNAL_IPS = [
-        "127.0.0.1",
-    ]
 
 ROOT_URLCONF = "event_manager.urls"
 
@@ -149,7 +156,9 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-# whitenoise
+# von hier aus werden Daten live ausgeliefert
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
