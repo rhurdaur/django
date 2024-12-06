@@ -93,3 +93,7 @@ https://django-filter.readthedocs.io/en/stable/guide/rest_framework.html
 
 ### Alternativie zu drf-spectacular
 https://github.com/axnsan12/drf-yasg/
+
+### Redis (performante Caching-Lösung)
+https://de.wikipedia.org/wiki/Redis
+https://github.com/jazzband/django-redis
