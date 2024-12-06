@@ -47,14 +47,38 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "whitenoise.runserver_nostatic",  # << eintragen
+    "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "crispy_bootstrap5",
     "crispy_forms",
     "rest_framework",
+    "rest_framework.authtoken",
+    "drf_spectacular",  # << eintragen
+    "drf_spectacular_sidecar",  # << eintragen
     "events",
     "core",
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        # "rest_framework.authentication.TokenAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        # "rest_framework.permissions.IsAuthenticated",
+    ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Event Manager API",
+    "DESCRIPTION": "Django <b>Event</b> manager",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "SWAGGER_UI_DIST": "SIDECAR",
+    "SWAGGER_UI_FAVICON_HREF": "SIDECAR",
+    "SERVE_AUTHENTICATION": ["rest_framework.authentication.SessionAuthentication"],
+    "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAuthenticated"],
+}
 
 
 MIDDLEWARE = [

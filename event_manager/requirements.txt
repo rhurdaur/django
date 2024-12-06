@@ -6,6 +6,10 @@
 #
 asgiref==3.8.1
     # via django
+attrs==24.2.0
+    # via
+    #   jsonschema
+    #   referencing
 crispy-bootstrap5==2024.10
     # via -r .\requirements.in
 django==5.1.3
@@ -14,6 +18,8 @@ django==5.1.3
     #   crispy-bootstrap5
     #   django-crispy-forms
     #   djangorestframework
+    #   drf-spectacular
+    #   drf-spectacular-sidecar
 django-crispy-forms==2.3
     # via
     #   -r .\requirements.in
@@ -21,13 +27,35 @@ django-crispy-forms==2.3
 django-environ==0.11.2
     # via -r .\requirements.in
 djangorestframework==3.15.2
+    # via
+    #   -r .\requirements.in
+    #   drf-spectacular
+drf-spectacular==0.28.0
+    # via -r .\requirements.in
+drf-spectacular-sidecar==2024.12.1
     # via -r .\requirements.in
 factory-boy==3.3.1
     # via -r .\requirements.in
 faker==33.1.0
     # via factory-boy
+inflection==0.5.1
+    # via drf-spectacular
+jsonschema==4.23.0
+    # via drf-spectacular
+jsonschema-specifications==2024.10.1
+    # via jsonschema
 python-dateutil==2.9.0.post0
     # via faker
+pyyaml==6.0.2
+    # via drf-spectacular
+referencing==0.35.1
+    # via
+    #   jsonschema
+    #   jsonschema-specifications
+rpds-py==0.22.3
+    # via
+    #   jsonschema
+    #   referencing
 six==1.16.0
     # via python-dateutil
 sqlparse==0.5.2
@@ -36,5 +64,7 @@ typing-extensions==4.12.2
     # via faker
 tzdata==2024.2
     # via django
+uritemplate==4.1.1
+    # via drf-spectacular
 whitenoise==6.8.2
     # via -r .\requirements.in

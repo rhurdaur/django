@@ -23,6 +23,16 @@
 - Event-App für die Event-Verwaltung
 - Core-App für die Verwaltung von misc
 
+## Curl-Requests für die API
+
+### Token holen
+- curl -X POST -d "username=admin&password=abcd1234" http://127.0.0.1:8000/api/users/token
+
+### ListCreateAPIView
+- curl http://127.0.0.1:8000/api/events/ -H "Authorization: Token 4de1cf9d04dc8eb9d33b646cd5baeb7a17af8c19"
+
+
+4de1cf9d04dc8eb9d33b646cd5baeb7a17af8c19
 
 ## Literatur
 - [Docker angucken](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/)
@@ -68,3 +78,15 @@ https://djangoheroes.spielprinzip.com/organisation/organize_settings.html#django
 https://djangoheroes.spielprinzip.com/profiwissen/whitenoise.html#index-0
 https://django-extensions.readthedocs.io/en/latest/
 https://www.django-rest-framework.org/
+
+### Tag 5
+https://swagger.io/tools/swagger-ui/
+https://www.django-rest-framework.org/
+https://djangoheroes.friendlybytes.net/webapi/restful_api.html#openapi-spezifikation
+https://drf-spectacular.readthedocs.io/en/latest/
+
+### Django Filters einbinden in DRF
+https://django-filter.readthedocs.io/en/stable/guide/rest_framework.html
+
+### Alternativie zu drf-spectacular
+https://github.com/axnsan12/drf-yasg/
