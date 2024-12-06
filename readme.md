@@ -10,12 +10,15 @@
 
     (env) pip install pip-tools
     (env) cd event_manager
+    (env) mv env_example .env
     (env) pip-sync .\requirements.txt .\requirements-dev.txt
 
     (env) python manage.py createsuperuser
     (env) python manage.py create_user
     (env) python manage.py create_events --events 20
 
+## Hinweise
+Die .env-Datei muss mit gültigen Werten gefüllt werden.
 
 ## folgende Apps wurden entwickelt
 

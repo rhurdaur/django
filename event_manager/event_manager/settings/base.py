@@ -28,6 +28,8 @@ DEBUG = env.bool("DEBUG")
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
+CACHE_TIMEOUT = 10
+
 # Messages
 MESSAGE_TAGS = {
     messages.DEBUG: "alert-secondary",
@@ -68,6 +70,7 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
+
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "Event Manager API",

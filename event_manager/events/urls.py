@@ -4,6 +4,7 @@ from . import views
 app_name = "events"
 
 urlpatterns = [
+    path("space", views.space_data, name="space-data"),
     path("categories", views.categories, name="categories"),
     path("categories/create", views.category_create, name="category_create"),
     # as_view erzeugt EinstiegsFunktion

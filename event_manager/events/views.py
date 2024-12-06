@@ -4,6 +4,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_cookie
 from django.contrib.auth.decorators import login_required  # für Funktionen
 from django.views.generic import (
     ListView,
@@ -12,8 +14,38 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
+from event_manager.mixins import CacheMixin
 from . import models
 from .forms import EventForm, CategoryForm, TicketForm, ReviewForm
+from .services import fetch_data, ServiceApiError
+from django.core.cache import cache
+
+
+# @vary_on_cookie
+# @cache_page(10)  # 5 sek
+def space_data(request):
+    """Aufrufen einer entfernten API zur Darstellung der Planeten."""
+    url = "https://api.le-systeme-solaire.net/rest/bodies/"
+    output = []
+
+    # prüfen, ob im Cache drin!
+    cache_key = "data"
+    data = cache.get(cache_key)
+
+    if not data:
+        data = fetch_data(url, timeout=5)
+        cache.set(cache_key, data, timeout=60)
+
+    try:
+        for body in data.get("bodies"):
+            if body.get("isPlanet"):
+                name = body.get("englishName")
+                output.append(name)
+
+    except ServiceApiError:
+        data = []
+
+    return render(request, "events/space_data.html", {"data": output})
 
 
 class UserIsAuthor(UserPassesTestMixin):
@@ -156,7 +188,7 @@ class SearchEventView(ListView):
         return queryset
 
 
-class EventListView(ListView):
+class EventListView(CacheMixin, ListView):
     """
     Listet Events auf.
 
